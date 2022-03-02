@@ -1,4 +1,3 @@
-const { append } = require('express/lib/response');
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://localhost/ski_resorts_db' || process.env.DATABASE_URL);
 
@@ -55,6 +54,17 @@ const SkiResorts = db.define('ski_resort', {
 const express = require('express');
 const app = express();
 
+// Add a GET API route
+app.get('/api/ski_resorts', async(req, res, next) => {
+    try {
+        const resorts = await SkiResorts.findAll();
+        res.send(resorts);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+
 // Database initilization
 const init = async() => {
     try {
@@ -73,8 +83,6 @@ const init = async() => {
     catch (err) {
         console.log(err);
     }
-
-
 };
 
 init();
