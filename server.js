@@ -52,6 +52,7 @@ const SkiResorts = db.define('ski_resort', {
 
 // Require module express
 const express = require('express');
+const req = require('express/lib/request');
 const app = express();
 
 // Add a GET API route
@@ -64,6 +65,12 @@ app.get('/api/ski_resorts', async(req, res, next) => {
         next(err);
     }
 });
+
+// Require path module
+const path = require('path');
+
+// Add a GET / route to return an index.html
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // Database initilization
 const init = async() => {
