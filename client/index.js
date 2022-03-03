@@ -6,6 +6,7 @@ class Main extends React.Component {
         this.state = {
             resorts: []
         };
+        this.removeItem = this.removeItem.bind(this);
     };
 
     async componentDidMount() {
@@ -19,6 +20,15 @@ class Main extends React.Component {
         catch (err) {
             console.log(err);
         }
+    }
+
+    async removeItem(id) {
+        await axios.delete(`/api/ski_resorts/${id}`);
+        // this.componentDidMount();
+        const resorts = this.state.resorts.filter(_resort => _resort.id !== id);
+        this.setState({
+            resorts
+        });
     }
 
     render() {
@@ -35,7 +45,9 @@ class Main extends React.Component {
                     </tr>
                     { this.state.resorts.map(resort => 
                         <tr>
-                            <td>{ resort.name }</td>
+                            <td>{ resort.name }
+                                <button onClick={ () => this.removeItem(resort.id) }>X</button>
+                            </td>
                             <td>{ resort.hours }</td>
                             <td>{ resort.ticket }</td>
                             <td>{ resort.lesson }</td>

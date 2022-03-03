@@ -75,6 +75,18 @@ app.use('/client', express.static(path.join(__dirname, '/client')));
 // Add a GET / route to return an index.html
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
+// Add a Delete route
+app.delete('/api/ski_resorts/:id', async(req, res, next) => {
+    try {
+        const resort = await SkiResorts.findByPk(req.params.id);
+        await resort.destroy();
+        res.sendStatus(204);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+
 // Database initilization
 const init = async() => {
     try {
