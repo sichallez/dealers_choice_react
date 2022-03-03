@@ -69,6 +69,9 @@ app.get('/api/ski_resorts', async(req, res, next) => {
 // Require path module
 const path = require('path');
 
+// Add static routes of my front-end js file to my server path
+app.use('/client', express.static(path.join(__dirname, '/client')));
+
 // Add a GET / route to return an index.html
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
