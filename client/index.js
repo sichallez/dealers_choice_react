@@ -35,6 +35,7 @@ class Main extends React.Component {
         return (
             <div>
                 <h1>Ski Resort Destinations</h1>
+                { /* <form onClick>Register New Ski Destination</button> */}
                 <table>
                     <tr>
                         <th>Resort</th>
